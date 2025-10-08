@@ -4,9 +4,11 @@ Conekta React Native Expo allows you to tokenize (encrypt) your end user's card 
 
 ## Installation
 
+
 ```sh
 npm install conekta-react-native-expo
 ```
+
 
 ## Usage
 
@@ -22,7 +24,9 @@ const result = multiply(3, 7);
 
 ## Contributing
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+- [Development workflow](CONTRIBUTING.md#development-workflow)
+- [Sending a pull request](CONTRIBUTING.md#sending-a-pull-request)
+- [Code of conduct](CODE_OF_CONDUCT.md)
 
 ## License
 

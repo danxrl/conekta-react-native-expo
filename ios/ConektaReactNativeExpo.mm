@@ -1,8 +1,6 @@
 #import "ConektaReactNativeExpo.h"
 
 @implementation ConektaReactNativeExpo
-RCT_EXPORT_MODULE()
-
 - (NSNumber *)multiply:(double)a b:(double)b {
     NSNumber *result = @(a * b);
 
@@ -13,6 +11,11 @@ RCT_EXPORT_MODULE()
     (const facebook::react::ObjCTurboModule::InitParams &)params
 {
     return std::make_shared<facebook::react::NativeConektaReactNativeExpoSpecJSI>(params);
+}
+
++ (NSString *)moduleName
+{
+  return @"ConektaReactNativeExpo";
 }
 
 @end

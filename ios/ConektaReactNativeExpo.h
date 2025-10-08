@@ -1,5 +1,4 @@
-
-#import <ConektaReactNativeExpo/RNConektaReactNativeExpoSpec.h>
+#import <ConektaReactNativeExpoSpec/ConektaReactNativeExpoSpec.h>
 
 @interface ConektaReactNativeExpo : NSObject <NativeConektaReactNativeExpoSpec>
 
