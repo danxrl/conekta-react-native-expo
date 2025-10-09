@@ -22,7 +22,7 @@
   
   Conekta *conekta = [[Conekta alloc] init];
   [conekta setDelegate: self];
-  [conekta setPublicKey:@"key_KJysdbf6PotS2ut2"];
+  [conekta setPublicKey:pk];
   [conekta collectDevice];
   
   Card *card = [conekta.Card initWithNumber:number name:name cvc:cvc expMonth:expMonth expYear:expYear];

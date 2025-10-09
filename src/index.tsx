@@ -1,5 +1,14 @@
 import ConektaReactNativeExpo from './NativeConektaReactNativeExpo';
 
-export function multiply(a: number, b: number): number {
-  return ConektaReactNativeExpo.multiply(a, b);
+export type CardInput = {
+  name: string;
+  number: string;
+  cvc: string;
+  expMonth: string;
+  expYear: string;
+  publicKey: string;
+};
+
+export async function createCardToken(input: CardInput) {
+  return ConektaReactNativeExpo.createCardToken(input);
 }

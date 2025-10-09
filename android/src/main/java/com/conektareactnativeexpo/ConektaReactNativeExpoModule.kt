@@ -1,20 +1,22 @@
 package com.conektareactnativeexpo
 
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.module.annotations.ReactModule
+import java.util.concurrent.Executors
 
-import io.conekta.model.Token;
-import io.conekta.model.TokenCard;
-import io.conekta.model.TokenResponse;
-import io.conekta.TokensApi;
+import io.conekta.model.Token
+import io.conekta.model.TokenCard
+import io.conekta.model.TokenResponse
+import io.conekta.TokensApi
 
 @ReactModule(name = ConektaReactNativeExpoModule.NAME)
 class ConektaReactNativeExpoModule(reactContext: ReactApplicationContext) :
   NativeConektaReactNativeExpoSpec(reactContext) {
 
-  override fun getName(): String {
-    return NAME
-  }
+  override fun getName(): String = NAME
 
   override fun createCardToken(input: ReadableMap, promise: Promise) {
     val publicKey = input.getString("publicKey") ?: run {
@@ -28,32 +30,35 @@ class ConektaReactNativeExpoModule(reactContext: ReactApplicationContext) :
     val expMonth = input.getString("expMonth") ?: ""
     val expYear = input.getString("expYear") ?: ""
 
-    TokensApi instance = new TokensApi();
-    instance.setApiKey(pk);
+    val instance = TokensApi()
+    instance.setApiKey(publicKey)
 
-    Token token = new Token();
-    TokenCard card = new TokenCard();
+    val token = Token()
+    val card = TokenCard()
 
-    card.setName(name);
-    card.setNumber(number);
-    card.setCvc(cvc);
-    card.setExpMonth(expMonth);
-    card.setExpYear(expYear);
+    card.name = name
+    card.number = number
+    card.cvc = cvc
+    card.expMonth = expMonth
+    card.expYear = expYear
 
-    token.setCard(card);
+    token.card = card
 
-    // Ejecuta fuera del UI thread
     Executors.newSingleThreadExecutor().execute {
-    try {
-      TokenResponse response = instance.createToken(token, "es");
-      if (response.id.isNullOrEmpty()) {
-        promise.reject("E_TOKEN", "Token id missing")
-      } else {
-        val out = Arguments.createMap().apply { putString("id", id) }
-        promise.resolve(out)
+      try {
+        val response = instance.createToken(token, "es")
+        val tokenId = response.id
+        if (tokenId.isNullOrEmpty()) {
+          promise.reject("E_TOKEN", "Token id missing")
+        } else {
+          val out = Arguments.createMap().apply { 
+            putString("id", tokenId) 
+          }
+          promise.resolve(out)
+        }
+      } catch (e: Exception) {
+        promise.reject("E_FAILED", e.localizedMessage, e)
       }
-    } catch (e: Exception) {
-      promise.reject("E_FAILED", e.localizedMessage, e)
     }
   }
 
