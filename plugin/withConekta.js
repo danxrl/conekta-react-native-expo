@@ -18,7 +18,7 @@ module.exports = function withConekta(config) {
         if (!m.contents.includes('io.conekta:conektasdk')) {
           m.contents = m.contents.replace(
             'dependencies {',
-            'dependencies {\n    implementation "io.conekta:conektasdk:2.0.0"'
+            'dependencies {\n    implementation "io.conekta:conektasdk:2.1"'
           );
         }
         return cfg;
@@ -26,7 +26,7 @@ module.exports = function withConekta(config) {
     (c) =>
       withPodfile(c, (cfg) => {
         if (!cfg.modResults.contents.includes("pod 'Conekta'")) {
-          cfg.modResults.contents += `\n  pod 'Conekta', '~> 6.0'\n`;
+          cfg.modResults.contents += `\n  pod 'Conekta', '~> 2.1'\n`;
         }
         return cfg;
       }),
