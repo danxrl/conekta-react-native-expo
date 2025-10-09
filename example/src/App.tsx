@@ -11,7 +11,7 @@ export default function App() {
   const [result, setResult] = useState('');
 
   const createCard = useCallback(async () => {
-    const result = await createCardToken({
+    const card = await createCardToken({
       publicKey: '',
       name,
       number,
@@ -19,8 +19,8 @@ export default function App() {
       expYear,
       cvc,
     });
-    setResult(result.id);
-  }, [name, number, expYear, expYear, cvc])
+    setResult(card.id);
+  }, [name, number, expMonth, expYear, cvc]);
 
   return (
     <View style={styles.container}>
@@ -49,10 +49,7 @@ export default function App() {
         value={cvc}
         placeholder={'CVC'}
       />
-      <Button
-        title="Guardar tarjeta"
-        onPress={createCard}
-      />
+      <Button title="Guardar tarjeta" onPress={createCard} />
       <Text>Result: {result}</Text>
     </View>
   );

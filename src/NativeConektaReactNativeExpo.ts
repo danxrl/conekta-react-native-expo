@@ -8,7 +8,7 @@ export interface Spec extends TurboModule {
     expMonth: string;
     expYear: string;
     publicKey: string;
-  }): Promise<{ id: string }>
+  }): Promise<{ id: string }>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('ConektaReactNativeExpo');
