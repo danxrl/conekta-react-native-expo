@@ -10,7 +10,7 @@ module.exports = function withConekta(config)  {
       if (!m.contents.includes('io.conekta:conektasdk')) {
         m.contents = m.contents.replace(
           'dependencies {',
-          'dependencies {\n    implementation "io.conekta:conektasdk:6.0.1"'
+          'dependencies {\n    implementation "io.conekta:conektasdk:2.0.0"'
         );
       }
       return cfg;
