@@ -1,6 +1,6 @@
-import { withPlugins, withAppBuildGradle, withPodfile } from '@expo/config-plugins';
+const { withPlugins, withAppBuildGradle, withPodfile } = require('@expo/config-plugins');
 
-export default function withConekta(config) {
+module.exports = function withConekta(config)  {
   return withPlugins(config, [
     (c) => withAppBuildGradle(c, (cfg) => {
       const m = cfg.modResults;

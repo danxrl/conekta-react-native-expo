@@ -1,7 +1,6 @@
 {
   "name": "conekta-react-native-expo",
   "version": "0.1.0",
-  "private": true,
   "description": "Conekta React Native Expo allows you to tokenize (encrypt) your end user's card data.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -11,6 +10,8 @@
       "types": "./lib/typescript/src/index.d.ts",
       "default": "./lib/module/index.js"
     },
+    "./app.plugin.js": "./app.plugin.js",
+    "./plugin/*": "./plugin/*",
     "./package.json": "./package.json"
   },
   "files": [
@@ -46,7 +47,8 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "conekta"
   ],
   "repository": {
     "type": "git",
