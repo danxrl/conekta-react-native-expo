@@ -24,10 +24,23 @@
 }
 
 - (void) collectDevice {
-    NSString *html = [NSString stringWithFormat:@"<html style=\"background: blue;\"><head></head><body><script type=\"text/javascript\" src=\"https://conektaapi.s3.amazonaws.com/v0.5.0/js/conekta.js\" data-conekta-public-key=\"%@\" data-conekta-session-id=\"%@\"></script></body></html>", [self publicKey], [self deviceFingerprint]];
-    WKWebView *web = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    [web loadHTMLString:html baseURL:nil];
-    [self.delegate.view addSubview:web];
+    void (^collectBlock)(void) = ^{
+        if (!self.delegate || !self.delegate.view) {
+            NSLog(@"Conekta collectDevice skipped: delegate or view not available");
+            return;
+        }
+
+        NSString *html = [NSString stringWithFormat:@"<html style=\"background: blue;\"><head></head><body><script type=\"text/javascript\" src=\"https://conektaapi.s3.amazonaws.com/v0.5.0/js/conekta.js\" data-conekta-public-key=\"%@\" data-conekta-session-id=\"%@\"></script></body></html>", [self publicKey], [self deviceFingerprint]];
+        WKWebView *web = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        [web loadHTMLString:html baseURL:nil];
+        [self.delegate.view addSubview:web];
+    };
+
+    if ([NSThread isMainThread]) {
+        collectBlock();
+    } else {
+        dispatch_async(dispatch_get_main_queue(), collectBlock);
+    }
 }
 
 - (id) populate: (id) class
@@ -51,4 +64,3 @@
 }
 
 @end
-
