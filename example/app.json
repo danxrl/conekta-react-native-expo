@@ -1,4 +1,40 @@
 {
-  "name": "ConektaReactNativeExpoExample",
-  "displayName": "ConektaReactNativeExpoExample"
+  "expo": {
+    "name": "conekta-react-native-expo-example",
+    "slug": "conekta-react-native-expo-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dnxdevs.conektareactnativeexpo.example"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.dnxdevs.conektareactnativeexpo.example"
+    },
+    "plugins": [
+      [
+        "conekta-react-native-expo",
+        {
+          "publicKey": "key_test_xxxxxxxxxxxxxxxxxxxxx"
+        }
+      ]
+    ],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
 }

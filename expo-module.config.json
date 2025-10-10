@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["ConektaReactNativeExpoModule"]
+  },
+  "android": {
+    "modules": ["com.dnxdevs.conektareactnativeexpo.ConektaReactNativeExpoModule"]
+  }
+}

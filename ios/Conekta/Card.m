@@ -43,25 +43,26 @@ NSString *const kPublicKeyPEM = @"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w
         return nil;
     }
     
-    size_t cipherBufferSize = SecKeyGetBlockSize(publicKey);
-    uint8_t *cipherBuffer = malloc(cipherBufferSize);
-    
-    OSStatus status = SecKeyEncrypt(publicKey,
-                                    kSecPaddingPKCS1,
-                                    plainData.bytes,
-                                    plainData.length,
-                                    cipherBuffer,
-                                    &cipherBufferSize);
-    
-    NSData *cipherData;
-    if (status == errSecSuccess) {
-        cipherData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
-    } else {
-        NSLog(@"Encryption failed with status: %d", (int)status);
-        cipherData = nil;
+    SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionPKCS1;
+    if (!SecKeyIsAlgorithmSupported(publicKey, kSecKeyOperationTypeEncrypt, algorithm)) {
+        NSLog(@"Encryption algorithm is not supported for the provided key");
+        CFRelease(publicKey);
+        return nil;
+    }
+
+    CFErrorRef error = NULL;
+    CFDataRef cipherDataRef = SecKeyCreateEncryptedData(publicKey,
+                                                        algorithm,
+                                                        (__bridge CFDataRef)plainData,
+                                                        &error);
+    NSData *cipherData = CFBridgingRelease(cipherDataRef);
+    if (!cipherData) {
+        NSError *err = CFBridgingRelease(error);
+        NSLog(@"Encryption failed: %@", err.localizedDescription);
+        CFRelease(publicKey);
+        return nil;
     }
     
-    free(cipherBuffer);
     CFRelease(publicKey);
     
     return [cipherData base64EncodedStringWithOptions:0];
