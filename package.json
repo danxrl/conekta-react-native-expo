@@ -23,7 +23,10 @@
     "conekta-react-native-expo",
     "ConektaReactNativeExpo"
   ],
-  "repository": "https://github.com/danxrl/conekta-react-native-expo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danxrl/conekta-react-native-expo.git"
+  },
   "bugs": {
     "url": "https://github.com/danxrl/conekta-react-native-expo/issues"
   },
